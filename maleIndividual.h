@@ -5,8 +5,13 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <cstdlib>
+#include "landMass.h"
 #include "femaleIndividual.h"
+#include "geometry.h"
 using namespace std;
+
+class landMass;
+class femaleIndividual;
 
 class maleIndividual{
   GLfloat vertices[16];
@@ -15,6 +20,9 @@ class maleIndividual{
   int dir;
   GLfloat beakValue;
   int numFrames;
+  landMass* home;
+  int fed;
+  
 
 public:
 
@@ -33,6 +41,13 @@ public:
   femaleIndividual makeLadyBaby();
   
   maleIndividual makeManBaby();
+
+  void setHomeland(landMass* h);
+
+  int inHomeland(Point p);
+
+  int getFed();
+  void getHungry();
 };
 
 #endif

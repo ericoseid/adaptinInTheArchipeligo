@@ -162,17 +162,19 @@ int main(){
   GLfloat yVal = .0625;
   for(int i = 0; i < 5; i++){
     maleIndividual temp(xVal, yVal);
+    temp.setHomeland(&origin);
     originMalePop.push_back(temp);
-    yVal -= 0.05;
+    yVal -= 0.03;
   }
 
   yVal = .0625;
   for(int i = 0; i < 5; i++){
     femaleIndividual temp((-1 * xVal), yVal);
+    temp.setHomeland(&origin);
     originFemPop.push_back(temp);
     yVal -= 0.05;
   }
-  
+
   
   landMass cactusLand(0.5f, 0.5f, 0.1875f, 0.125f);
   cactusLand.setFoodVal(1.0f);
@@ -217,17 +219,21 @@ int main(){
 	int size = originFemPop.size();
 	for(unsigned int j = 0; j < size; ++j){
 	  if(originMalePop[i].checkContact(originFemPop[j]) &&
-	     originFemPop[j].getFed() == 500){
+	     originFemPop[j].getFed() == 500 &&
+	     originMalePop[i].getFed() == 500){
 	    bool boyGirl = rand() % 2;
 	    if(boyGirl){
 	      maleIndividual temp = originMalePop[i].makeManBaby();
+	      temp.setHomeland(&origin);
 	      originMalePop.push_back(temp);
 	    }
 	    else{
 	      femaleIndividual temp = originMalePop[i].makeLadyBaby();
+	      temp.setHomeland(&origin);
 	      originFemPop.push_back(temp);
 	    }
 	    originFemPop[j].getHungry();
+	    originMalePop[i].getHungry();
 	  }
 	}
 	originMalePop[i].draw();

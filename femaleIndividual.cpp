@@ -65,6 +65,8 @@ void femaleIndividual::changeDir(){
 }
 
 void femaleIndividual::move(){
+  Point center(this->vertices[0]+.01f, this->vertices[1]+.01f);
+  
   changeDir();
   if(dir == 0){
   }
@@ -120,6 +122,61 @@ void femaleIndividual::move(){
     vertices[5] -= .002;
     vertices[9] -= .002;
   }
+
+  int num = inHomeland(center);
+
+  if(num == 1){
+    vertices[1] -= .02;
+    vertices[5] -= .02;
+    vertices[9] -= .02;
+    vertices[0] -= .02;
+    vertices[4] -= .02;
+    vertices[8] -= .02;
+  }
+  else if(num == 2){
+   vertices[0] -= .02;
+   vertices[4] -= .02;
+   vertices[8] -= .02;
+  }
+  else if(num == 3){
+    vertices[1] += .02;
+    vertices[5] += .02;
+    vertices[9] += .02;
+    vertices[0] -= .02;
+    vertices[4] -= .02;
+    vertices[8] -= .02;
+  }
+  else if(num == 4){
+    vertices[1] += .02;
+    vertices[5] += .02;
+    vertices[9] += .02;
+  }
+  else if(num == 5){
+    vertices[1] += .02;
+    vertices[5] += .02;
+    vertices[9] += .02;
+    vertices[0] += .02;
+    vertices[4] += .02;
+    vertices[8] += .02;
+  }
+  else if(num == 6){
+    vertices[0] += .02;
+    vertices[4] += .02;
+    vertices[8] += .02;
+  }
+  else if(num == 7){
+    vertices[1] -= .02;
+    vertices[5] -= .02;
+    vertices[9] -= .02;
+    vertices[0] += .02;
+    vertices[4] += .02;
+    vertices[8] += .02;
+  }
+  else if(num == 8){
+    vertices[1] -= .02;
+    vertices[5] -= .02;
+    vertices[9] -= .02;
+  }
   
   glBindVertexArray(VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -135,15 +192,15 @@ int femaleIndividual::getNumFrames(){
   return numFrames;
 }
 
-GLfloat* femaleIndividual::getVertices(){
-  GLfloat* retVerts = new GLfloat[6];
+vector<GLfloat> femaleIndividual::getVertices(){
+  vector<GLfloat> retVerts;
 
-  retVerts[0] = this->vertices[0];
-  retVerts[1] = this->vertices[1];
-  retVerts[2] = this->vertices[4];
-  retVerts[3] = this->vertices[5];
-  retVerts[4] = this->vertices[8];
-  retVerts[5] = this->vertices[9];
+  retVerts.push_back(this->vertices[0]);
+  retVerts.push_back(this->vertices[1]);
+  retVerts.push_back(this->vertices[4]);
+  retVerts.push_back(this->vertices[5]);
+  retVerts.push_back(this->vertices[8]);
+  retVerts.push_back(this->vertices[9]);
 
   return retVerts;
   
@@ -155,4 +212,16 @@ int femaleIndividual::getFed(){
 
 void femaleIndividual::getHungry(){
   fed = 0;
+}
+
+void femaleIndividual::setHomeland(landMass* h){
+  home = h;
+}
+
+int femaleIndividual::inHomeland(Point p){
+  vector<GLfloat> homeVerts = home->getVerts();
+  
+  Point one(homeVerts[0], homeVerts[1]);
+  
+  return isInSquare(p, one, 0.125f * 2.0f); 
 }

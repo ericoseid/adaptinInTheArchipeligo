@@ -12,7 +12,7 @@
 using namespace std;
 
 class landMass{
-  GLfloat vertices[24];
+  GLfloat vertices[12];
   GLuint VAO;
   GLuint VBO;
   GLfloat cX;
@@ -21,9 +21,6 @@ class landMass{
   GLfloat edgeDist;
   float foodVal;
 
-  vector<maleIndividual> malePopulation;
-  vector<femaleIndividual> femalePopulation;
-  
  public:
 
   //lalal
@@ -33,6 +30,8 @@ class landMass{
   void draw();
   float getFoodVal();
   void setFoodVal(float newVal);
+
+  vector<GLfloat> getVerts();
 };
 
 #endif

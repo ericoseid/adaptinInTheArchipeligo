@@ -1,31 +1,7 @@
 #include "maleIndividual.h"
 
-struct Point{
-  float x;
-  float y;
-
-  Point(float xCor, float yCor){
-    x = xCor;
-    y = yCor;
-  }
-};
-
-float Sign(Point p1, Point p2, Point p3){
-  return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x -p3.x) * (p1.y - p3.y);
-}
-
-bool isInTriang(Point p, Point v1, Point v2, Point v3){
-  bool b1, b2, b3;
-
-  b1 = Sign(p, v1, v2) < 0.0f;
-  b2 = Sign(p, v2, v3) < 0.0f;
-  b3 = Sign(p, v3, v1) < 0.0f;
-
-  return ((b1 == b2) && (b2 == b3));
-}
-  
-
 maleIndividual::maleIndividual(GLfloat bottomLeftX, GLfloat bottomLeftY){
+  fed = 500;
   beakValue = 0.0;
   numFrames = 0;
   dir = 0;
@@ -93,6 +69,8 @@ void maleIndividual::changeDir(){
 }
 
 void maleIndividual::move(){
+  Point center(this->vertices[0]+.01f, this->vertices[1]+.01f);
+  
   changeDir();
   if(dir == 0){
   }
@@ -102,7 +80,7 @@ void maleIndividual::move(){
     vertices[8] += .002;
     vertices[12] += .002;
   }
-  else if(dir == 2){
+  else if(dir == 2){    
     vertices[1] += .002;
     vertices[5] += .002;
     vertices[9] += .002;
@@ -144,7 +122,7 @@ void maleIndividual::move(){
     vertices[8] -= .002;
     vertices[12] -= .002;
   }
-  else if(dir == 7){
+  else if(dir == 7){   
     vertices[1] -= .002;
     vertices[5] -= .002;
     vertices[9] -= .002;
@@ -159,6 +137,73 @@ void maleIndividual::move(){
     vertices[5] -= .002;
     vertices[9] -= .002;
     vertices[13] -= .002;
+  }
+  
+  int num = inHomeland(center);
+
+  if(num == 1){
+    vertices[1] -= .02;
+    vertices[5] -= .02;
+    vertices[9] -= .02;
+    vertices[13] -= .02;
+    vertices[0] -= .02;
+    vertices[4] -= .02;
+    vertices[8] -= .02;
+    vertices[12] -= .02;
+  }
+  else if(num == 2){
+   vertices[0] -= .02;
+   vertices[4] -= .02;
+   vertices[8] -= .02;
+   vertices[12] -= .02; 
+  }
+  else if(num == 3){
+    vertices[1] += .02;
+    vertices[5] += .02;
+    vertices[9] += .02;
+    vertices[13] += .02;
+    vertices[0] -= .02;
+    vertices[4] -= .02;
+    vertices[8] -= .02;
+    vertices[12] -= .02;
+  }
+  else if(num == 4){
+    vertices[1] += .02;
+    vertices[5] += .02;
+    vertices[9] += .02;
+    vertices[13] += .02;
+  }
+  else if(num == 5){
+    vertices[1] += .02;
+    vertices[5] += .02;
+    vertices[9] += .02;
+    vertices[13] += .02;
+    vertices[0] += .02;
+    vertices[4] += .02;
+    vertices[8] += .02;
+    vertices[12] += .02;
+  }
+  else if(num == 6){
+    vertices[0] += .02;
+    vertices[4] += .02;
+    vertices[8] += .02;
+    vertices[12] += .02;
+  }
+  else if(num == 7){
+    vertices[1] -= .02;
+    vertices[5] -= .02;
+    vertices[9] -= .02;
+    vertices[13] -= .02;
+    vertices[0] += .02;
+    vertices[4] += .02;
+    vertices[8] += .02;
+    vertices[12] += .02; 
+  }
+  else if(num == 8){
+    vertices[1] -= .02;
+    vertices[5] -= .02;
+    vertices[9] -= .02;
+    vertices[13] -= .02;
   }
   
   glBindVertexArray(VAO);
@@ -176,15 +221,20 @@ int maleIndividual::getNumFrames(){
 }
 
 bool maleIndividual::checkContact(femaleIndividual f){
-  GLfloat* fVerts = f.getVertices();
+  vector<GLfloat> fVerts = f.getVertices();
 
   Point center( (this->vertices[0] + .01), (this->vertices[1] + .01) );
 
   Point vert1(fVerts[0], fVerts[1]);
-  Point vert2(fVerts[2], fVerts[3]);
-  Point vert3(fVerts[4], fVerts[5]);
- 
-  return isInTriang(center, vert1, vert2, vert3);
+
+  int num = isInSquare(center, vert1, .02);
+  
+  if(num == 0){
+    return true;
+  }
+  else{
+    return false;
+  }
 }
 
 femaleIndividual maleIndividual::makeLadyBaby(){
@@ -194,8 +244,26 @@ femaleIndividual maleIndividual::makeLadyBaby(){
 }
 
 maleIndividual maleIndividual::makeManBaby(){
-  cout<<"fuck off"<<endl;
   maleIndividual res(this->vertices[0] + .03, this->vertices[1]);
 
   return res;
+}
+
+void maleIndividual::setHomeland(landMass* h){
+  home = h;
+}
+
+int maleIndividual::inHomeland(Point p){
+  vector<GLfloat> homeVerts = home->getVerts();
+  
+  Point one(homeVerts[0], homeVerts[1]);
+  
+  return isInSquare(p, one, 0.125f * 2.0f); 
+}
+int maleIndividual::getFed(){
+  return fed;
+}
+
+void maleIndividual::getHungry(){
+  fed = 0;
 }

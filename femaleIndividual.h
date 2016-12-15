@@ -4,6 +4,12 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <cstdlib>
+#include <vector>
+#include "landMass.h"
+#include "geometry.h"
+using namespace std;
+
+class landMass;
 
 class femaleIndividual{
   GLfloat vertices[12];
@@ -13,6 +19,7 @@ class femaleIndividual{
   GLfloat beakValue;
   int numFrames;
   int fed;
+  landMass* home;
 
  public:
 
@@ -26,11 +33,15 @@ class femaleIndividual{
 
   int getNumFrames();
 
-  GLfloat* getVertices();
+  vector<GLfloat> getVertices();
 
   int getFed();
 
   void getHungry();
+
+  void setHomeland(landMass* h);
+
+  int inHomeland(Point p);
 };
 
 #endif
