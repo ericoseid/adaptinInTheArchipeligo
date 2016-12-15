@@ -175,7 +175,6 @@ int main(){
     yVal -= 0.05;
   }
 
-  
   landMass cactusLand(0.5f, 0.5f, 0.1875f, 0.125f);
   cactusLand.setFoodVal(1.0f);
   
@@ -187,7 +186,8 @@ int main(){
   
   landMass bugLand(-0.5f, -0.5f, 0.1875f, 0.125f);
   bugLand.setFoodVal(0.5f);
-  
+
+  cout<<originFemPop.size()<<" "<<originMalePop.size()<<endl;
   srand(time(NULL));
   while(!glfwWindowShouldClose(window)){
     glfwPollEvents();
@@ -223,11 +223,13 @@ int main(){
 	     originMalePop[i].getFed() == 500){
 	    bool boyGirl = rand() % 2;
 	    if(boyGirl){
+	      cout<<"new man"<<endl;
 	      maleIndividual temp = originMalePop[i].makeManBaby();
 	      temp.setHomeland(&origin);
 	      originMalePop.push_back(temp);
 	    }
 	    else{
+	      cout<<"new girl"<<endl;
 	      femaleIndividual temp = originMalePop[i].makeLadyBaby();
 	      temp.setHomeland(&origin);
 	      originFemPop.push_back(temp);

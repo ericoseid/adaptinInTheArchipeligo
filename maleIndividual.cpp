@@ -227,14 +227,11 @@ bool maleIndividual::checkContact(femaleIndividual f){
 
   Point vert1(fVerts[0], fVerts[1]);
 
-  int num = isInSquare(center, vert1, .02);
-  
-  if(num == 0){
+  if(center.x > vert1.x && center.x < (vert1.x + .02) &&
+     center.y > vert1.y && center.y < (vert1.y + .02))
     return true;
-  }
-  else{
+  else
     return false;
-  }
 }
 
 femaleIndividual maleIndividual::makeLadyBaby(){
