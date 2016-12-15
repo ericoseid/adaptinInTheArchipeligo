@@ -155,6 +155,24 @@ int main(){
 
   landMass origin(0.0f, 0.0f, 0.1875f, 0.125f);
   origin.setFoodVal(0.3f);
+  vector<maleIndividual> originMalePop;
+  vector<femaleIndividual> originFemPop;
+  
+  GLfloat xVal = .0625;
+  GLfloat yVal = .0625;
+  for(int i = 0; i < 5; i++){
+    maleIndividual temp(xVal, yVal);
+    originMalePop.push_back(temp);
+    yVal -= 0.05;
+  }
+
+  yVal = .0625;
+  for(int i = 0; i < 5; i++){
+    femaleIndividual temp((-1 * xVal), yVal);
+    originFemPop.push_back(temp);
+    yVal -= 0.05;
+  }
+  
   
   landMass cactusLand(0.5f, 0.5f, 0.1875f, 0.125f);
   cactusLand.setFoodVal(1.0f);
@@ -167,23 +185,6 @@ int main(){
   
   landMass bugLand(-0.5f, -0.5f, 0.1875f, 0.125f);
   bugLand.setFoodVal(0.5f);
-  
-  GLfloat xVal = .0625;
-  GLfloat yVal = .0625;
-  vector<maleIndividual> malePopulation;
-  for(int i = 0; i < 5; i++){
-    maleIndividual temp(xVal, yVal);
-    malePopulation.push_back(temp);
-    yVal -= 0.05;
-  }
-
-  yVal = .0625;
-  vector<femaleIndividual> femalePopulation;
-  for(int i = 0; i < 5; i++){
-    femaleIndividual temp((-1 * xVal), yVal);
-    femalePopulation.push_back(temp);
-    yVal -= 0.05;
-  }
   
   srand(time(NULL));
   while(!glfwWindowShouldClose(window)){
@@ -200,40 +201,40 @@ int main(){
     bugLand.draw();
 
     glUseProgram(individualShaderProgram);
-    for(unsigned int i = 0; i < femalePopulation.size(); ++i){
-      if(femalePopulation[i].getNumFrames() < 2000){
-	femalePopulation[i].draw();
-	femalePopulation[i].move();
+    for(unsigned int i = 0; i < originFemPop.size(); ++i){
+      if(originFemPop[i].getNumFrames() < 2000){
+	originFemPop[i].draw();
+	originFemPop[i].move();
       }
       else{
-	femalePopulation.erase(femalePopulation.begin() + i);
+	originFemPop.erase(originFemPop.begin() + i);
 	i--;
       }
     }
     
-    for(unsigned int i = 0; i < malePopulation.size(); ++i){
-      if(malePopulation[i].getNumFrames() < 2000){
-	int size = femalePopulation.size();
+    for(unsigned int i = 0; i < originMalePop.size(); ++i){
+      if(originMalePop[i].getNumFrames() < 2000){
+	int size = originFemPop.size();
 	for(unsigned int j = 0; j < size; ++j){
-	  if(malePopulation[i].checkContact(femalePopulation[j]) &&
-	     femalePopulation[j].getFed() == 500){
+	  if(originMalePop[i].checkContact(originFemPop[j]) &&
+	     originFemPop[j].getFed() == 500){
 	    bool boyGirl = rand() % 2;
 	    if(boyGirl){
-	      maleIndividual temp = malePopulation[i].makeManBaby();
-	      malePopulation.push_back(temp);
+	      maleIndividual temp = originMalePop[i].makeManBaby();
+	      originMalePop.push_back(temp);
 	    }
 	    else{
-	      femaleIndividual temp = malePopulation[i].makeLadyBaby();
-	      femalePopulation.push_back(temp);
+	      femaleIndividual temp = originMalePop[i].makeLadyBaby();
+	      originFemPop.push_back(temp);
 	    }
-	    femalePopulation[j].getHungry();
+	    originFemPop[j].getHungry();
 	  }
 	}
-	malePopulation[i].draw();
-	malePopulation[i].move();
+	originMalePop[i].draw();
+	originMalePop[i].move();
       }
       else{
-	malePopulation.erase(malePopulation.begin() + i);
+	originMalePop.erase(originMalePop.begin() + i);
 	i--;
       }
     }

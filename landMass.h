@@ -6,6 +6,9 @@
 #include <GLFW/glfw3.h>
 #include <cstdlib>
 #include <cmath>
+#include <vector>
+#include "maleIndividual.h"
+#include "femaleIndividual.h"
 using namespace std;
 
 class landMass{
@@ -17,6 +20,9 @@ class landMass{
   GLfloat vertDist;
   GLfloat edgeDist;
   float foodVal;
+
+  vector<maleIndividual> malePopulation;
+  vector<femaleIndividual> femalePopulation;
   
  public:
 
