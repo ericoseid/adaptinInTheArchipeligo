@@ -1,7 +1,7 @@
 #include "maleIndividual.h"
 
 maleIndividual::maleIndividual(GLfloat bottomLeftX, GLfloat bottomLeftY, GLfloat initialBeakValue){
-  fed = 500;
+  fed = 2000;
   beakValue = initialBeakValue;
   numFrames = 0;
   dir = 0;
@@ -213,7 +213,7 @@ void maleIndividual::move(){
 			(GLvoid*) 0);
   glEnableVertexAttribArray(0);
   glBindVertexArray(0);
-  numFrames++;
+  fed - 1.0f;
 }
 
 int maleIndividual::getNumFrames(){
@@ -248,7 +248,7 @@ int maleIndividual::inHomeland(Point p){
   
   return isInSquare(p, one, 0.125f * 2.0f); 
 }
-int maleIndividual::getFed(){
+float maleIndividual::getFed(){
   return fed;
 }
 
@@ -266,4 +266,8 @@ maleIndividual maleIndividual::makeManBaby(femaleIndividual mate){
   maleIndividual res(this->vertices[0] + .03, this->vertices[1], (beakValue+mate.getBeakValue())/2);
 
   return res;
+}
+
+void maleIndividual::incFed(){
+	if (fed < 500) fed+=5;
 }

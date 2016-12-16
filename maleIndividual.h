@@ -21,7 +21,7 @@ class maleIndividual{
   GLfloat beakValue;
   int numFrames;
   landMass* home;
-  int fed;
+  float fed;
   
 
 public:
@@ -48,8 +48,12 @@ public:
 
   maleIndividual makeManBaby(femaleIndividual mate);
 
-  int getFed();
+
+  float getFed();
+
   void getHungry();
+
+  void incFed();
 };
 
 #endif

@@ -229,3 +229,7 @@ int femaleIndividual::inHomeland(Point p){
 GLfloat femaleIndividual::getBeakValue(){
 	return beakValue;
 }
+
+void femaleIndividual::incFed(){
+	if (fed < 500) fed+=5;
+}

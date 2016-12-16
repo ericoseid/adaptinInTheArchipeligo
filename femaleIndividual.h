@@ -46,6 +46,8 @@ class femaleIndividual{
   void setHomeland(landMass* h);
 
   int inHomeland(Point p);
+
+  void incFed();
 };
 
 #endif
