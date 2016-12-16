@@ -21,7 +21,7 @@ class maleIndividual{
   GLfloat beakValue;
   int numFrames;
   landMass* home;
-  int fed;
+  float fed;
   
 
 public:
@@ -46,7 +46,7 @@ public:
 
   int inHomeland(Point p);
 
-  int getFed();
+  float getFed();
   void getHungry();
 };
 

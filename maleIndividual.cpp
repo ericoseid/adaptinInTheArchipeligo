@@ -1,7 +1,7 @@
 #include "maleIndividual.h"
 
 maleIndividual::maleIndividual(GLfloat bottomLeftX, GLfloat bottomLeftY){
-  fed = 500;
+  fed = 2000.0f;
   beakValue = 0.0;
   numFrames = 0;
   dir = 0;
@@ -213,7 +213,7 @@ void maleIndividual::move(){
 			(GLvoid*) 0);
   glEnableVertexAttribArray(0);
   glBindVertexArray(0);
-  numFrames++;
+  fed - 1.0f;
 }
 
 int maleIndividual::getNumFrames(){
@@ -257,7 +257,7 @@ int maleIndividual::inHomeland(Point p){
   
   return isInSquare(p, one, 0.125f * 2.0f); 
 }
-int maleIndividual::getFed(){
+float maleIndividual::getFed(){
   return fed;
 }
 
