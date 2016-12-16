@@ -7,8 +7,6 @@
 #include <cstdlib>
 #include <cmath>
 #include <vector>
-#include "maleIndividual.h"
-#include "femaleIndividual.h"
 using namespace std;
 
 class landMass{

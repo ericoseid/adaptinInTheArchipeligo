@@ -7,6 +7,8 @@
 #include <vector>
 #include "landMass.h"
 #include "geometry.h"
+#include "maleIndividual.h"
+
 using namespace std;
 
 class landMass;
@@ -23,7 +25,7 @@ class femaleIndividual{
 
  public:
 
-  femaleIndividual(GLfloat bottomLeftX, GLfloat bottomLeftY);
+  femaleIndividual(GLfloat bottomLeftX, GLfloat bottomLeftY, GLfloat initialBeakValue);
 
   void draw();
 
@@ -34,6 +36,8 @@ class femaleIndividual{
   int getNumFrames();
 
   vector<GLfloat> getVertices();
+
+  GLfloat getBeakValue();
 
   int getFed();
 

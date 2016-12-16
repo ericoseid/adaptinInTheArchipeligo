@@ -1,7 +1,7 @@
 #include "femaleIndividual.h"
 
-femaleIndividual::femaleIndividual(GLfloat bottomLeftX, GLfloat bottomLeftY){
-  beakValue = 0.0;
+femaleIndividual::femaleIndividual(GLfloat bottomLeftX, GLfloat bottomLeftY, GLfloat initialBeakValue){
+  beakValue = initialBeakValue;
   numFrames = 0;
   dir = 0;
   fed = 500;
@@ -224,4 +224,8 @@ int femaleIndividual::inHomeland(Point p){
   Point one(homeVerts[0], homeVerts[1]);
   
   return isInSquare(p, one, 0.125f * 2.0f); 
+}
+
+GLfloat femaleIndividual::getBeakValue(){
+	return beakValue;
 }

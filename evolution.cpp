@@ -3,8 +3,8 @@
 #include <GLFW/glfw3.h>
 #include <cstdlib>
 #include <vector>
-#include "maleIndividual.h"
 #include "femaleIndividual.h"
+#include "maleIndividual.h"
 #include "landMass.h"
 using namespace std;
 
@@ -159,10 +159,15 @@ int main(){
   vector<maleIndividual> originMalePop;
   vector<femaleIndividual> originFemPop;
   
+  srand(time(NULL));
+
   GLfloat xVal = .0625;
   GLfloat yVal = .0625;
+  GLfloat randBeak;
   for(int i = 0; i < 5; i++){
-    maleIndividual temp(xVal, yVal);
+	randBeak = (float)(rand() % 1000 + 1)/(float)1000;
+	//give random initial beak value
+    maleIndividual temp(xVal, yVal, randBeak);
     temp.setHomeland(&origin);
     originMalePop.push_back(temp);
     yVal -= 0.03;
@@ -170,7 +175,8 @@ int main(){
 
   yVal = .0625;
   for(int i = 0; i < 5; i++){
-    femaleIndividual temp((-1 * xVal), yVal);
+	randBeak = (float)(rand() % 1000 + 1)/(float)1000;
+    femaleIndividual temp((-1 * xVal), yVal, randBeak);
     temp.setHomeland(&origin);
     originFemPop.push_back(temp);
     yVal -= 0.05;
@@ -189,7 +195,6 @@ int main(){
   bugLand.setFoodVal(0.5f);
 
   cout<<originFemPop.size()<<" "<<originMalePop.size()<<endl;
-  srand(time(NULL));
   while(!glfwWindowShouldClose(window)){
     glfwPollEvents();
 
@@ -225,13 +230,13 @@ int main(){
 	    bool boyGirl = rand() % 2;
 	    if(boyGirl){
 	      cout<<"new man"<<endl;
-	      maleIndividual temp = originMalePop[i].makeManBaby();
+	      maleIndividual temp = originMalePop[i].makeManBaby(originFemPop[j]);
 	      temp.setHomeland(&origin);
 	      originMalePop.push_back(temp);
 	    }
 	    else{
 	      cout<<"new girl"<<endl;
-	      femaleIndividual temp = originMalePop[i].makeLadyBaby();
+	      femaleIndividual temp = originMalePop[i].makeLadyBaby(originFemPop[j]);
 	      temp.setHomeland(&origin);
 	      originFemPop.push_back(temp);
 	    }

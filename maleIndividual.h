@@ -26,7 +26,7 @@ class maleIndividual{
 
 public:
 
-  maleIndividual(GLfloat bottomLeftX, GLfloat bottomLeftY);
+  maleIndividual(GLfloat bottomLeftX, GLfloat bottomLeftY, GLfloat initialBeakValue);
 
   void draw();
 
@@ -34,17 +34,19 @@ public:
 
   void move();
 
+  GLfloat getBeakValue();
+
   int getNumFrames();
 
   bool checkContact(femaleIndividual f);
 
-  femaleIndividual makeLadyBaby();
-  
-  maleIndividual makeManBaby();
-
   void setHomeland(landMass* h);
 
   int inHomeland(Point p);
+
+  femaleIndividual makeLadyBaby(femaleIndividual mate);
+
+  maleIndividual makeManBaby(femaleIndividual mate);
 
   int getFed();
   void getHungry();

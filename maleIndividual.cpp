@@ -1,8 +1,8 @@
 #include "maleIndividual.h"
 
-maleIndividual::maleIndividual(GLfloat bottomLeftX, GLfloat bottomLeftY){
+maleIndividual::maleIndividual(GLfloat bottomLeftX, GLfloat bottomLeftY, GLfloat initialBeakValue){
   fed = 500;
-  beakValue = 0.0;
+  beakValue = initialBeakValue;
   numFrames = 0;
   dir = 0;
   
@@ -234,22 +234,13 @@ bool maleIndividual::checkContact(femaleIndividual f){
     return false;
 }
 
-femaleIndividual maleIndividual::makeLadyBaby(){
-  femaleIndividual res(this->vertices[0] + .03, this->vertices[1]);
-
-  return res;
-}
-
-maleIndividual maleIndividual::makeManBaby(){
-  maleIndividual res(this->vertices[0] + .03, this->vertices[1]);
-
-  return res;
-}
-
 void maleIndividual::setHomeland(landMass* h){
   home = h;
 }
 
+GLfloat maleIndividual::getBeakValue(){
+	return beakValue;
+}
 int maleIndividual::inHomeland(Point p){
   vector<GLfloat> homeVerts = home->getVerts();
   
@@ -263,4 +254,16 @@ int maleIndividual::getFed(){
 
 void maleIndividual::getHungry(){
   fed = 0;
+}
+
+femaleIndividual maleIndividual::makeLadyBaby(femaleIndividual mate){
+  femaleIndividual res(this->vertices[0] + .03, this->vertices[1], (beakValue+mate.getBeakValue())/2);
+
+  return res;
+}
+
+maleIndividual maleIndividual::makeManBaby(femaleIndividual mate){
+  maleIndividual res(this->vertices[0] + .03, this->vertices[1], (beakValue+mate.getBeakValue())/2);
+
+  return res;
 }
