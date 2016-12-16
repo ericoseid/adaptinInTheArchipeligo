@@ -4,7 +4,7 @@ femaleIndividual::femaleIndividual(GLfloat bottomLeftX, GLfloat bottomLeftY, GLf
   beakValue = initialBeakValue;
   numFrames = 0;
   dir = 0;
-  fed = 500;
+  fed = 2000;
 
   vertices[0] = bottomLeftX; 
   vertices[1] = bottomLeftY;
@@ -186,6 +186,8 @@ void femaleIndividual::move(){
   glEnableVertexAttribArray(0);
   glBindVertexArray(0);
   numFrames++;
+  fed -= 1;
+  fed += .05/.01+(beakValue-home->getFoodVal())*(beakValue-home->getFoodVal());
 }
 
 int femaleIndividual::getNumFrames(){
@@ -211,7 +213,7 @@ int femaleIndividual::getFed(){
 }
 
 void femaleIndividual::getHungry(){
-  fed = 0;
+  fed -=1500;
 }
 
 void femaleIndividual::setHomeland(landMass* h){

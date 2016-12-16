@@ -294,7 +294,7 @@ int main(){
 
     glUseProgram(individualShaderProgram);
     for(unsigned int i = 0; i < originFemPop.size(); ++i){
-      if(originFemPop[i].getNumFrames() < 2000){
+      if(originFemPop[i].getFed() > 0.0f){
 	originFemPop[i].draw();
 	originFemPop[i].move();
       }
@@ -309,8 +309,8 @@ int main(){
 	int size = originFemPop.size();
 	for(unsigned int j = 0; j < size; ++j){
 	  if(originMalePop[i].checkContact(originFemPop[j]) &&
-	     originFemPop[j].getFed() >= 500 &&
-	     originMalePop[i].getFed() >= 500){
+	     originFemPop[j].getFed() >= 1000 &&
+	     originMalePop[i].getFed() >= 1000){
 	    bool boyGirl = rand() % 2;
 	    if(boyGirl){
 	      cout<<"new man"<<endl;
@@ -339,7 +339,7 @@ int main(){
     }
 
     for(unsigned int i = 0; i < cactusFemPop.size(); ++i){
-      if(cactusFemPop[i].getNumFrames() < 2000){
+      if(cactusFemPop[i].getFed() > 0.0f){
 	cactusFemPop[i].draw();
 	cactusFemPop[i].move();
       }
@@ -354,8 +354,8 @@ int main(){
 	int size = cactusFemPop.size();
 	for(unsigned int j = 0; j < size; ++j){
 	  if(cactusMalePop[i].checkContact(cactusFemPop[j]) &&
-	     cactusFemPop[j].getFed() >= 500 &&
-	     cactusMalePop[i].getFed() >= 500){
+	     cactusFemPop[j].getFed() >= 1000 &&
+	     cactusMalePop[i].getFed() >= 1000){
 	    bool boyGirl = rand() % 2;
 	    if(boyGirl){
 	      maleIndividual temp = cactusMalePop[i].makeManBaby(cactusFemPop[j]);
@@ -381,7 +381,7 @@ int main(){
     }
 
     for(unsigned int i = 0; i < flowerFemPop.size(); ++i){
-      if(flowerFemPop[i].getNumFrames() < 2000){
+      if(flowerFemPop[i].getFed() > 0.0f){
 	flowerFemPop[i].draw();
 	flowerFemPop[i].move();
       }
@@ -396,8 +396,8 @@ int main(){
 	int size = flowerFemPop.size();
 	for(unsigned int j = 0; j < size; ++j){
 	  if(flowerMalePop[i].checkContact(flowerFemPop[j]) &&
-	     flowerFemPop[j].getFed() >= 500 &&
-	     flowerMalePop[i].getFed() >= 500){
+	     flowerFemPop[j].getFed() >= 1000 &&
+	     flowerMalePop[i].getFed() >= 1000){
 	    bool boyGirl = rand() % 2;
 	    if(boyGirl){
 	      maleIndividual temp = flowerMalePop[i].makeManBaby(flowerFemPop[j]);
@@ -423,7 +423,7 @@ int main(){
     }
 
     for(unsigned int i = 0; i < nutFemPop.size(); ++i){
-      if(nutFemPop[i].getNumFrames() < 2000){
+      if(nutFemPop[i].getFed() > 0.0f){
 	nutFemPop[i].draw();
 	nutFemPop[i].move();
       }
@@ -438,8 +438,8 @@ int main(){
 	int size = nutFemPop.size();
 	for(unsigned int j = 0; j < size; ++j){
 	  if(nutMalePop[i].checkContact(nutFemPop[j]) &&
-	     nutFemPop[j].getFed() >= 500 &&
-	     nutMalePop[i].getFed() >= 500){
+	     nutFemPop[j].getFed() >= 1000 &&
+	     nutMalePop[i].getFed() >= 1000){
 	    bool boyGirl = rand() % 2;
 	    if(boyGirl){
 	      maleIndividual temp = nutMalePop[i].makeManBaby(nutFemPop[j]);
@@ -465,10 +465,9 @@ int main(){
     }
 
     for(unsigned int i = 0; i < bugFemPop.size(); ++i){
-      if(bugFemPop[i].getNumFrames() < 2000){
+      if(bugFemPop[i].getFed() > 0.0f){
 	bugFemPop[i].draw();
 	bugFemPop[i].move();
-	//bugFemPop[i].incFed();
       }
       else{
 	bugFemPop.erase(bugFemPop.begin() + i);
@@ -481,8 +480,8 @@ int main(){
 	int size = bugFemPop.size();
 	for(unsigned int j = 0; j < size; ++j){
 	  if(bugMalePop[i].checkContact(bugFemPop[j]) &&
-	     bugFemPop[j].getFed() >= 500 &&
-	     bugMalePop[i].getFed() >= 500){
+	     bugFemPop[j].getFed() >= 1000 &&
+	     bugMalePop[i].getFed() >= 1000){
 	    bool boyGirl = rand() % 2;
 	    if(boyGirl){
 	      maleIndividual temp = bugMalePop[i].makeManBaby(bugFemPop[j]);
@@ -500,7 +499,6 @@ int main(){
 	}
 	bugMalePop[i].draw();
 	bugMalePop[i].move();
-	//bugMalePop[i].incFed();
       }
       else{
 	bugMalePop.erase(bugMalePop.begin() + i);

@@ -71,7 +71,7 @@ void maleIndividual::changeDir(){
 void maleIndividual::move(){
   Point center(this->vertices[0]+.01f, this->vertices[1]+.01f);
   
-  changeDir();
+  if (rand() % 10 + 1==4) changeDir();
   if(dir == 0){
   }
   else if(dir == 1){
@@ -213,7 +213,8 @@ void maleIndividual::move(){
 			(GLvoid*) 0);
   glEnableVertexAttribArray(0);
   glBindVertexArray(0);
-  fed - 1.0f;
+  fed -= 1;
+  fed += .05/.01+(beakValue-home->getFoodVal())*(beakValue-home->getFoodVal());
 }
 
 int maleIndividual::getNumFrames(){
@@ -253,7 +254,7 @@ float maleIndividual::getFed(){
 }
 
 void maleIndividual::getHungry(){
-  fed = 0;
+  fed -=1500;
 }
 
 femaleIndividual maleIndividual::makeLadyBaby(femaleIndividual mate){
